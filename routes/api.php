@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AreaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/test', function (Request $request) {
     return "Hello, world!";
+});
+
+Route::group(['prefix' => 'areas'], function () {
+    Route::get('registry', [AreaController::class, 'getRegistry']);
 });
