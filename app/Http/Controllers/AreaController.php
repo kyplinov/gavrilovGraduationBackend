@@ -6,7 +6,7 @@ use App\Models\Area;
 
 class AreaController extends Controller
 {
-    public function getRegistry()
+    public function registry()
     {
         return response()->json(Area::all());
     }

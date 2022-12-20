@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AreaController;
+use App\Http\Controllers\DepartmentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,5 +21,9 @@ Route::get('/test', function (Request $request) {
 });
 
 Route::group(['prefix' => 'areas'], function () {
-    Route::get('registry', [AreaController::class, 'getRegistry']);
+    Route::get('registry', [AreaController::class, 'registry']);
+});
+
+Route::group(['prefix' => 'departments'], function () {
+    Route::get('registry', [DepartmentController::class, 'registry']);
 });
