@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('areas', function (Blueprint $table) {
-            $table->integer('id');
-            $table->string('name');
+        Schema::create('status_types', function (Blueprint $table) {
+            $table->id();
+            $table->string('type');
         });
     }
 
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('areas');
+        Schema::dropIfExists('status_types');
     }
 };
