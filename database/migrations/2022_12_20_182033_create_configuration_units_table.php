@@ -22,6 +22,7 @@ return new class extends Migration
                 ->constrained();
             $table->foreignId('area_id')
                 ->constrained();
+            $table->bigInteger('status_id')->unsigned();
             $table->foreign('status_id')->references('id')->on('statuses');
         });
     }
