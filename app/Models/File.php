@@ -11,6 +11,11 @@ class File extends Model
 
     protected $fillable = [
         'id',
-        'file_name',
+        'file_path',
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
     ];
 }
