@@ -9,16 +9,15 @@ use Illuminate\Http\Request;
 
 class PhotoController extends Controller
 {
-    public function getPhoto(int $id): string
+    public function get(Photo $photo): string
     {
-        $fileName =  DB::table('files')
+        return DB::table('files')
             ->select(
-                'files.file_name'
+                'files.file_path'
             )
             ->join('photos', 'files.id', '=', 'photos.file_id')
-            ->where('photos.id','=', $id)
-            ->first()->file_name;
-        return $this->getTmpPath() . $fileName;
+            ->where('photos.id','=', $photo->id)
+            ->first()->file_path;
     }
 
     public function create(Request $request)
@@ -47,10 +46,5 @@ class PhotoController extends Controller
                 'error' => 'Файл не сохранен',
             ], 422);
         }
-    }
-
-    private function getTmpPath(): string
-    {
-        return $_SERVER['DOCUMENT_ROOT'] . '/tmp/photo';
     }
 }

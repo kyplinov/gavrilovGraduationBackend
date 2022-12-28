@@ -10,6 +10,25 @@ class Area extends Model
 
     protected $fillable = [
         'id',
-        'name',
+        'department_id',
     ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
+
+    protected $appends = [
+        'department',
+    ];
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
+
+    public function getDepartmentAttribute()
+    {
+        return $this->department()->get()->first();
+    }
 }
