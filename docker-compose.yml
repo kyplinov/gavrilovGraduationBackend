@@ -26,3 +26,7 @@ services:
         environment:
             - MYSQL_ROOT_PASSWORD=root
             - MYSQL_DATABASE=myDb
+    sonar:
+        image: sonarqube:lts-community
+        ports:
+            - 8094:9000
