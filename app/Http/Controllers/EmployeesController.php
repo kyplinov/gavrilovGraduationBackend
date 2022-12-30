@@ -20,6 +20,7 @@ class EmployeesController extends Controller
 
     public function create(Request $request)
     {
+        var_dump($request->area['id']);
         $employees = new Employee([
             'user_id' => $request->user ? $request->user['id'] : null,
             'first_name' => $request->first_name,
