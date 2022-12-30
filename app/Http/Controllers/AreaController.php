@@ -26,6 +26,7 @@ class AreaController extends Controller
         if ($area->save()) {
             return response()->json([
                 'message' => 'зона сохранен',
+                'id' => $area->id,
             ], 201);
         } else {
             return response()->json([

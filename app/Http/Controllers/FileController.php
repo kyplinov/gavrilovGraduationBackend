@@ -16,7 +16,7 @@ class FileController extends Controller
         if ($file->save()) {
             return response()->json([
                 'message' => 'Файл сохранен',
-                'photo_id' => $file->id,
+                'id' => $file->id,
             ], 201);
         } else {
             return response()->json([

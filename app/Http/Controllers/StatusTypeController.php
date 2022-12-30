@@ -25,6 +25,7 @@ class StatusTypeController extends Controller
         if ($statusType->save()) {
             return response()->json([
                 'message' => 'Тип статуса сохранен',
+                'id' => $statusType->id
             ], 201);
         } else {
             return response()->json([

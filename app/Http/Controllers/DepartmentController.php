@@ -25,6 +25,7 @@ class DepartmentController extends Controller
         if ($departament->save()) {
             return response()->json([
                 'message' => 'Департамент сохранен',
+                'id' => $departament->id,
             ], 201);
         } else {
             return response()->json([

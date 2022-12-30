@@ -25,6 +25,7 @@ class ConfigurationUnitTypeController extends Controller
         if ($configurationUnitType->save()) {
             return response()->json([
                 'message' => 'Тип КЕ сохранен',
+                'id' => $configurationUnitType->id,
             ], 201);
         } else {
             return response()->json([

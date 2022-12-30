@@ -33,6 +33,7 @@ class StatusController extends Controller
         if ($area->save()) {
             return response()->json([
                 'message' => 'Статус сохранен',
+                'id' => $area->id
             ], 201);
         } else {
             return response()->json([

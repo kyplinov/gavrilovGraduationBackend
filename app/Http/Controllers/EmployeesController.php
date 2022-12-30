@@ -35,6 +35,7 @@ class EmployeesController extends Controller
         if ($employees->save()) {
             return response()->json([
                 'message' => 'Сотрудник сохранен',
+                'id' => $employees->id,
             ], 201);
         } else {
             return response()->json([

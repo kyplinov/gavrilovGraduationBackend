@@ -10,6 +10,7 @@ class Area extends Model
 
     protected $fillable = [
         'id',
+        'name',
         'department_id',
     ];
 

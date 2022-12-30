@@ -34,7 +34,7 @@ class PhotoController extends Controller
             if ($photo->save()) {
                 return response()->json([
                     'message' => 'Фото сохранено',
-                    'photo_id' => $photo->id,
+                    'id' => $photo->id,
                 ], 201);
             } else {
                 return response()->json([
