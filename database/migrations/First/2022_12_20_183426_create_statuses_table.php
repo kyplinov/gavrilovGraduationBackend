@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('status_type_id')
                 ->constrained()
                 ->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

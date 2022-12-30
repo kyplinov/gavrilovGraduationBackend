@@ -6,6 +6,8 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployeesController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\StatusController;
+use App\Http\Controllers\StatusTypeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +22,27 @@ Route::group(['prefix' => 'area'], function () {
         Route::get('', [AreaController::class, 'get']);
         Route::put('', [AreaController::class, 'update']);
         Route::delete('', [AreaController::class, 'destroy']);
+    });
+});
+
+Route::group(['prefix' => 'statusType'], function () {
+    Route::get('registry', [StatusTypeController::class, 'registry']);
+    Route::post('', [StatusTypeController::class, 'create']);
+    Route::group(['prefix' => '{statusType}'], function () {
+        Route::get('', [StatusTypeController::class, 'get']);
+        Route::put('', [StatusTypeController::class, 'update']);
+        Route::delete('', [StatusTypeController::class, 'destroy']);
+        Route::get('', [StatusController::class, 'statusFromType']);
+    });
+});
+
+Route::group(['prefix' => 'statuses'], function () {
+    Route::get('registry', [StatusController::class, 'registry']);
+    Route::post('', [StatusController::class, 'create']);
+    Route::group(['prefix' => '{statuses}'], function () {
+        Route::get('', [StatusController::class, 'get']);
+        Route::put('', [StatusController::class, 'update']);
+        Route::delete('', [StatusController::class, 'destroy']);
     });
 });
 
