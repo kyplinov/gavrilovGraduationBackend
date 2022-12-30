@@ -62,12 +62,6 @@ class EmployeesController extends Controller
 
 
         if ($employee->update()) {
-            if (count($request->tags) > 0) {
-                foreach ($request->tags as $tag) {
-                    $tagsId [] = $tag['id'];
-                }
-                $employee->tags()->sync($tagsId);
-            }
             return response()->json([
                 'message' => 'Сотрудник сохранен',
             ]);

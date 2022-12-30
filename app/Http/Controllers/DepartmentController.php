@@ -39,12 +39,6 @@ class DepartmentController extends Controller
         $department->name = $request->name;
 
         if ($department->update()) {
-            if (count($request->tags) > 0) {
-                foreach ($request->tags as $tag) {
-                    $tagsId [] = $tag['id'];
-                }
-                $department->tags()->sync($tagsId);
-            }
             return response()->json([
                 'message' => 'Департамент сохранен',
             ]);

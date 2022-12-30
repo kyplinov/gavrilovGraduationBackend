@@ -49,12 +49,6 @@ class ConfigurationUnitController extends Controller
         $configurationUnit->status_id = $request->status['id'];
 
         if ($configurationUnit->update()) {
-            if (count($request->tags) > 0) {
-                foreach ($request->tags as $tag) {
-                    $tagsId [] = $tag['id'];
-                }
-                $configurationUnit->tags()->sync($tagsId);
-            }
             return response()->json([
                 'message' => 'КЕ сохранен',
             ]);

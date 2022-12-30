@@ -43,12 +43,6 @@ class StatusController extends Controller
         $status->status_type = $request->status_type;
 
         if ($status->update()) {
-            if (count($request->tags) > 0) {
-                foreach ($request->tags as $tag) {
-                    $tagsId [] = $tag['id'];
-                }
-                $status->tags()->sync($tagsId);
-            }
             return response()->json([
                 'message' => 'Статус сохранен',
             ]);

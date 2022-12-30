@@ -41,12 +41,6 @@ class AreaController extends Controller
         $area->department_id = $request->department['id'];
 
         if ($area->update()) {
-            if (count($request->tags) > 0) {
-                foreach ($request->tags as $tag) {
-                    $tagsId [] = $tag['id'];
-                }
-                $area->tags()->sync($tagsId);
-            }
             return response()->json([
                 'message' => 'Зона сохранен',
             ]);

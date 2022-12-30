@@ -39,14 +39,6 @@ class ConfigurationUnitTypeController extends Controller
         $configurationUnitType->type = $request->type;
 
         if ($configurationUnitType->update()) {
-
-            if (count($request->tags) > 0) {
-                foreach ($request->tags as $tag) {
-                    $tagsId [] = $tag['id'];
-                }
-                $configurationUnitType->tags()->sync($tagsId);
-            }
-
             return response()->json([
                 'message' => 'Тип КЕ сохранен',
             ]);

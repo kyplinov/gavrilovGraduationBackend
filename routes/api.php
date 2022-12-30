@@ -8,7 +8,6 @@ use App\Http\Controllers\EmployeesController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\StatusController;
-use App\Http\Controllers\StatusTypeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
