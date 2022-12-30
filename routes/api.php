@@ -60,6 +60,8 @@ Route::group(['prefix' => 'employee'], function () {
     Route::post('', [EmployeesController::class, 'create']);
     Route::group(['prefix' => '{employee}'], function() {
         Route::get('', [EmployeesController::class, 'get']);
+        Route::put('', [EmployeesController::class, 'update']);
+        Route::delete('', [EmployeesController::class, 'destroy']);
     });
 });
 
