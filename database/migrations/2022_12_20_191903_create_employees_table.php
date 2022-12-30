@@ -26,8 +26,10 @@ return new class extends Migration
             $table->string('mobile_phone_number');
             $table->string('email');
             $table->foreignId('photo_id')
+                ->nullable()
                 ->constrained();
             $table->foreignId('area_id')
+                ->nullable()
                 ->constrained();
             $table->timestamps();
         });
