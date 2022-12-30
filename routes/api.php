@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AreaController;
+use App\Http\Controllers\ConfigurationUnitController;
 use App\Http\Controllers\ConfigurationUnitTypeController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployeesController;
@@ -42,6 +43,16 @@ Route::group(['prefix' => 'configurationUnitType'], function () {
         Route::get('', [ConfigurationUnitTypeController::class, 'get']);
         Route::put('', [ConfigurationUnitTypeController::class, 'update']);
         Route::delete('', [ConfigurationUnitTypeController::class, 'destroy']);
+    });
+});
+
+Route::group(['prefix' => 'configurationUnit'], function () {
+    Route::get('registry', [ConfigurationUnitController::class, 'registry']);
+    Route::post('', [ConfigurationUnitController::class, 'create']);
+    Route::group(['prefix' => '{configurationUnit}'], function () {
+        Route::get('', [ConfigurationUnitController::class, 'get']);
+        Route::put('', [ConfigurationUnitController::class, 'update']);
+        Route::delete('', [ConfigurationUnitController::class, 'destroy']);
     });
 });
 
