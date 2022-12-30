@@ -17,6 +17,7 @@ class Employee extends Model
         'work_phone_number',
         'mobile_phone_number',
         'email',
+        'position',
     ];
 
     protected $appends = [

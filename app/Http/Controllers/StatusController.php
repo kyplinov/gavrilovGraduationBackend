@@ -19,16 +19,11 @@ class StatusController extends Controller
         return response()->json(Status::all());
     }
 
-    public function statusFromType(StatusType $statusType)
-    {
-        return response()->json(Status::with('status_types')->find($statusType->id)->all());
-    }
-
     public function create(Request $request)
     {
         $area = new Status([
             'name' => $request->name,
-            'status_type_id' => $request->status_type['id'],
+            'status_type' => $request->status_type,
         ]);
         if ($area->save()) {
             return response()->json([
@@ -45,7 +40,7 @@ class StatusController extends Controller
     public function update(Request $request, Status $status)
     {
         $status->name = $request->name;
-        $status->status_type_id = $request->status_type['id'];
+        $status->status_type = $request->status_type;
 
         if ($status->update()) {
             if (count($request->tags) > 0) {

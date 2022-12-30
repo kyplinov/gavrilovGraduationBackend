@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('work_phone_number');
             $table->string('mobile_phone_number');
             $table->string('email');
+            $table->string('position');
             $table->foreignId('photo_id')
                 ->nullable()
                 ->constrained();

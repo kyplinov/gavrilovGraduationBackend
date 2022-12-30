@@ -25,17 +25,6 @@ Route::group(['prefix' => 'area'], function () {
     });
 });
 
-Route::group(['prefix' => 'statusType'], function () {
-    Route::get('registry', [StatusTypeController::class, 'registry']);
-    Route::post('', [StatusTypeController::class, 'create']);
-    Route::group(['prefix' => '{statusType}'], function () {
-        Route::get('', [StatusTypeController::class, 'get']);
-        Route::put('', [StatusTypeController::class, 'update']);
-        Route::delete('', [StatusTypeController::class, 'destroy']);
-        Route::get('', [StatusController::class, 'statusFromType']);
-    });
-});
-
 Route::group(['prefix' => 'statuses'], function () {
     Route::get('registry', [StatusController::class, 'registry']);
     Route::post('', [StatusController::class, 'create']);

@@ -28,6 +28,7 @@ class EmployeesController extends Controller
             'work_phone_number' => $request->work_phone_number,
             'mobile_phone_number' => $request->mobile_phone_number,
             'email' => $request->email,
+            'position' => $request->position,
             'photo_id' => $request->photo ? $request->photo['id'] : null,
             'area_id' => $request->area ? $request->area['id'] : null,
         ]);
