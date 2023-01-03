@@ -19,6 +19,7 @@ return new class extends Migration
                 ->constrained();
             $table->foreignId('employees_id')
                 ->constrained();
+            $table->timestamps();
         });
     }
 

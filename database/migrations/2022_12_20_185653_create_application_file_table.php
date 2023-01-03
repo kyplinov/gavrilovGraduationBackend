@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreignId('file_id')
                 ->constrained()
                 ->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
