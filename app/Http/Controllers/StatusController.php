@@ -22,9 +22,9 @@ class StatusController extends Controller
         return response()->json($collection);
     }
 
-    public function get()
+    public function get(Status $status)
     {
-        return response()->json(Status::all());
+        return response()->json($status);
     }
 
     public function create(Request $request)

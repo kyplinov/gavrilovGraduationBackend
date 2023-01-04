@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ConfigurationUnitController;
@@ -92,5 +93,15 @@ Route::group(['prefix' => 'file', 'middleware' => 'jwt.auth'], function () {
             Route::get('', [PhotoController::class, 'get']);
         });
         Route::post('', [PhotoController::class, 'create']);
+    });
+});
+
+Route::group(['prefix' => 'application', 'middleware' => 'jwt.auth'], function () {
+    Route::get('registry', [ApplicationController::class, 'registry']);
+    Route::post('', [ApplicationController::class, 'create']);
+    Route::group(['prefix' => '{application}'], function() {
+        Route::get('', [ApplicationController::class, 'get']);
+        Route::put('', [ApplicationController::class, 'update']);
+        Route::delete('', [ApplicationController::class, 'destroy']);
     });
 });

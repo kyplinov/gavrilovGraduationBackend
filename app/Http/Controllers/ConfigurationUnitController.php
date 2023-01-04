@@ -20,9 +20,9 @@ class ConfigurationUnitController extends Controller
         return response()->json($collection);
     }
 
-    public function get()
+    public function get(ConfigurationUnit $configurationUnit)
     {
-        return response()->json(ConfigurationUnit::all());
+        return response()->json($configurationUnit);
     }
 
     public function create(Request $request)

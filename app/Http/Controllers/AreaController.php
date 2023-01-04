@@ -20,9 +20,9 @@ class AreaController extends Controller
         return response()->json($collection);
     }
 
-    public function get()
+    public function get(Area $area)
     {
-        return response()->json(Area::all());
+        return response()->json($area);
     }
 
     public function create(Request $request)
