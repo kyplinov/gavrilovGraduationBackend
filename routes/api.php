@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AreaController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ConfigurationUnitController;
 use App\Http\Controllers\ConfigurationUnitTypeController;
 use App\Http\Controllers\DepartmentController;
@@ -11,11 +12,20 @@ use App\Http\Controllers\StatusController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/test', function (Request $request) {
-    return "Hello, world!";
+Route::group(['prefix' => 'auth', 'middleware' => 'api'], function ($router) {
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('refresh', [AuthController::class, 'refresh']);
+    Route::post('me', [AuthController::class, 'me']);
 });
 
-Route::group(['prefix' => 'area'], function () {
+Route::group(['prefix' => 'test', 'middleware' => 'jwt.auth'], function () {
+    Route::get('', function (Request $request) {
+        return "Hello, world!";
+    });
+});
+
+Route::group(['prefix' => 'area', 'middleware' => 'jwt.auth'], function () {
     Route::get('registry', [AreaController::class, 'registry']);
     Route::post('', [AreaController::class, 'create']);
     Route::group(['prefix' => '{configurationUnitType}'], function () {
@@ -25,7 +35,7 @@ Route::group(['prefix' => 'area'], function () {
     });
 });
 
-Route::group(['prefix' => 'statuses'], function () {
+Route::group(['prefix' => 'statuses', 'middleware' => 'jwt.auth'], function () {
     Route::get('registry', [StatusController::class, 'registry']);
     Route::post('', [StatusController::class, 'create']);
     Route::group(['prefix' => '{statuses}'], function () {
@@ -35,7 +45,7 @@ Route::group(['prefix' => 'statuses'], function () {
     });
 });
 
-Route::group(['prefix' => 'configurationUnitType'], function () {
+Route::group(['prefix' => 'configurationUnitType', 'middleware' => 'jwt.auth'], function () {
     Route::get('registry', [ConfigurationUnitTypeController::class, 'registry']);
     Route::post('', [ConfigurationUnitTypeController::class, 'create']);
     Route::group(['prefix' => '{configurationUnitType}'], function () {
@@ -45,7 +55,7 @@ Route::group(['prefix' => 'configurationUnitType'], function () {
     });
 });
 
-Route::group(['prefix' => 'configurationUnit'], function () {
+Route::group(['prefix' => 'configurationUnit', 'middleware' => 'jwt.auth'], function () {
     Route::get('registry', [ConfigurationUnitController::class, 'registry']);
     Route::post('', [ConfigurationUnitController::class, 'create']);
     Route::group(['prefix' => '{configurationUnit}'], function () {
@@ -55,7 +65,7 @@ Route::group(['prefix' => 'configurationUnit'], function () {
     });
 });
 
-Route::group(['prefix' => 'department'], function () {
+Route::group(['prefix' => 'department', 'middleware' => 'jwt.auth'], function () {
     Route::get('registry', [DepartmentController::class, 'registry']);
     Route::post('', [DepartmentController::class, 'create']);
     Route::group(['prefix' => '{department}'], function () {
@@ -65,7 +75,7 @@ Route::group(['prefix' => 'department'], function () {
     });
 });
 
-Route::group(['prefix' => 'employee'], function () {
+Route::group(['prefix' => 'employee', 'middleware' => 'jwt.auth'], function () {
     Route::get('registry', [EmployeesController::class, 'registry']);
     Route::post('', [EmployeesController::class, 'create']);
     Route::group(['prefix' => '{employee}'], function() {
@@ -75,7 +85,7 @@ Route::group(['prefix' => 'employee'], function () {
     });
 });
 
-Route::group(['prefix' => 'file'], function () {
+Route::group(['prefix' => 'file', 'middleware' => 'jwt.auth'], function () {
     Route::post('', [FileController::class, 'create']);
     Route::group(['prefix' => 'photo'], function() {
         Route::group(['prefix' => '{photo}'], function() {
