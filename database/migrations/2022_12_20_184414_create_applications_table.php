@@ -15,10 +15,14 @@ return new class extends Migration
     {
         Schema::create('applications', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('date_completed');
+            $table->dateTime('date_completed')->nullable();
             $table->foreignId('configuration_unit_id')
+                ->nullable()
                 ->constrained();
-            $table->text('extra');
+            $table->text('extra')->nullable();
+            $table->foreignId('employee_id')
+                ->nullable()
+                ->constrained();
             $table->timestamps();
         });
     }
