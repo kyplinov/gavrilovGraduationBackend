@@ -7,9 +7,17 @@ use Illuminate\Http\Request;
 
 class AreaController extends Controller
 {
-    public function registry()
+    public function registry(Request $request)
     {
-        return response()->json(Area::all());
+        $queryParams = $request->all();
+        $collection = Area::paginate(isset($queryParams['pageSize']) ? (int)$queryParams['pageSize'] : 10);
+        foreach ($queryParams as $key => $value) {
+            if ($key !== 'pageSize') {
+                print_r($key);
+                $collection = $collection->where("$key", 'LIKE' ,"$value");
+            }
+        }
+        return response()->json($collection);
     }
 
     public function get()

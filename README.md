@@ -10,3 +10,5 @@
 - php artisan migrate (запускаем оставшиеся миграции)
 
 p.s. 3 последние команды мб перепешу в очередь миграции
+
+Для паролей используется Bcrypt Hash Generator (https://bcrypt.online/)
