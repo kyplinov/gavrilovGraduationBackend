@@ -24,6 +24,7 @@ return new class extends Migration
                 ->constrained();
             $table->bigInteger('status_id')->unsigned();
             $table->foreign('status_id')->references('id')->on('statuses');
+            $table->text('extra')->nullable();
             $table->timestamps();
         });
     }

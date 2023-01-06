@@ -19,10 +19,11 @@ return new class extends Migration
             $table->foreignId('configuration_unit_id')
                 ->nullable()
                 ->constrained();
-            $table->text('extra')->nullable();
             $table->foreignId('employee_id')
                 ->nullable()
                 ->constrained();
+            $table->text('description')->nullable();
+            $table->text('decide')->nullable();
             $table->timestamps();
         });
     }

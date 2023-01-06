@@ -34,6 +34,7 @@ class ConfigurationUnitController extends Controller
             'configuration_unit_type_id' => $request->configurationUnitType['id'],
             'area_id' => $request->area['id'],
             'status_id' => $request->status['id'],
+            'extra' => $request->extra,
         ]);
         if ($area->save()) {
             return response()->json([
@@ -55,6 +56,7 @@ class ConfigurationUnitController extends Controller
         $configurationUnit->configuration_unit_type_id = $request->configurationUnitType['id'];
         $configurationUnit->area_id = $request->area['id'];
         $configurationUnit->status_id = $request->status['id'];
+        $configurationUnit->extra = $request->extra;
 
         if ($configurationUnit->update()) {
             return response()->json([

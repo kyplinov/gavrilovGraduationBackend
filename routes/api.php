@@ -79,6 +79,7 @@ Route::group(['prefix' => 'department', 'middleware' => 'jwt.auth'], function ()
 Route::group(['prefix' => 'employee', 'middleware' => 'jwt.auth'], function () {
     Route::get('registry', [EmployeesController::class, 'registry']);
     Route::post('', [EmployeesController::class, 'create']);
+    Route::post('search', [EmployeesController::class, 'search']);
     Route::group(['prefix' => '{employee}'], function() {
         Route::get('', [EmployeesController::class, 'get']);
         Route::put('', [EmployeesController::class, 'update']);

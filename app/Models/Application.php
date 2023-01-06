@@ -14,6 +14,8 @@ class Application extends Model
         'configuration_unit_id',
         'extra',
         'employee_id',
+        'description',
+        'decide',
     ];
 
     protected $hidden = [

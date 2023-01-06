@@ -32,6 +32,8 @@ class ApplicationController extends Controller
             'configuration_unit_id' => $request->configuration_unit['id'],
             'extra' => $request->extra,
             'employee_id' => $request->employee['id'],
+            'description' => $request->description,
+            'decide' => $request->decide,
         ]);
         if ($application->save()) {
             return response()->json([
@@ -51,6 +53,8 @@ class ApplicationController extends Controller
         $application->configuration_unit_id = $request->configuration_unit['id'];
         $application->extra = $request->extra;
         $application->employee_id = $request->employee['id'];
+        $application->description = $request->description;
+        $application->decide = $request->decide;
 
         if ($application->update()) {
             return response()->json([

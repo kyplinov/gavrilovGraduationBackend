@@ -16,6 +16,7 @@ class ConfigurationUnit extends Model
         'configuration_unit_type_id',
         'area_id',
         'status_id',
+        'extra',
     ];
 
     protected $hidden = [

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class EmployeesController extends Controller
@@ -24,6 +24,12 @@ class EmployeesController extends Controller
     public function get(Employee $employee)
     {
         return response()->json($employee);
+    }
+
+    public function search(Request $request)
+    {
+        $collection = Employee::all();
+        return $collection->where('second_name', 'LIKE' ,"$request->search");
     }
 
     public function create(Request $request)
