@@ -16,6 +16,7 @@ class Application extends Model
         'employee_id',
         'description',
         'decide',
+        'status_id',
     ];
 
     protected $hidden = [
@@ -26,6 +27,7 @@ class Application extends Model
     protected $appends = [
         'configurationUnit',
         'employee',
+        'status',
     ];
 
     public function configurationUnit()
@@ -46,5 +48,15 @@ class Application extends Model
     public function getEmployeeAttribute()
     {
         return $this->employee()->get()->first();
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
+    }
+
+    public function getStatusAttribute()
+    {
+        return $this->status()->get()->first();
     }
 }

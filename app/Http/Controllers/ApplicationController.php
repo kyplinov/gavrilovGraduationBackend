@@ -34,6 +34,7 @@ class ApplicationController extends Controller
             'employee_id' => $request->employee['id'],
             'description' => $request->description,
             'decide' => $request->decide,
+            'status_id' => $request->status['id'],
         ]);
         if ($application->save()) {
             return response()->json([
@@ -55,6 +56,7 @@ class ApplicationController extends Controller
         $application->employee_id = $request->employee['id'];
         $application->description = $request->description;
         $application->decide = $request->decide;
+        $application->status_id = $request->status['id'];
 
         if ($application->update()) {
             return response()->json([

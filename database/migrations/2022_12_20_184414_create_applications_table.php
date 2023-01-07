@@ -24,6 +24,8 @@ return new class extends Migration
                 ->constrained();
             $table->text('description')->nullable();
             $table->text('decide')->nullable();
+            $table->bigInteger('status_id')->unsigned();
+            $table->foreign('status_id')->references('id')->on('statuses');
             $table->timestamps();
         });
     }
