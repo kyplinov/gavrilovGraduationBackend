@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 class Application extends Model
@@ -11,9 +12,8 @@ class Application extends Model
     protected $fillable = [
         'id',
         'date_completed',
-        'configuration_unit_id',
-        'extra',
         'employee_id',
+        'support_id',
         'description',
         'decide',
         'status_id',
@@ -25,19 +25,20 @@ class Application extends Model
     ];
 
     protected $appends = [
-        'configurationUnit',
         'employee',
+        'support',
         'status',
+        'configurationUnits',
     ];
 
-    public function configurationUnit()
+    public function configurationUnits()
     {
-        return $this->belongsTo(ConfigurationUnit::class);
+        return $this->belongsToMany(ConfigurationUnit::class);
     }
 
-    public function getConfigurationUnitAttribute()
+    public function getConfigurationUnitsAttribute(): Collection
     {
-        return $this->configurationUnit()->get()->first();
+        return $this->configurationUnits()->get();
     }
 
     public function employee()
@@ -48,6 +49,16 @@ class Application extends Model
     public function getEmployeeAttribute()
     {
         return $this->employee()->get()->first();
+    }
+
+    public function support()
+    {
+        return $this->belongsTo(Employee::class);
+    }
+
+    public function getSupportAttribute()
+    {
+        return $this->support()->get()->first();
     }
 
     public function status()

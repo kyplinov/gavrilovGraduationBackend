@@ -16,12 +16,11 @@ return new class extends Migration
         Schema::create('applications', function (Blueprint $table) {
             $table->id();
             $table->dateTime('date_completed')->nullable();
-            $table->foreignId('configuration_unit_id')
-                ->nullable()
-                ->constrained();
             $table->foreignId('employee_id')
                 ->nullable()
                 ->constrained();
+            $table->bigInteger('support_id')->unsigned();
+            $table->foreign('support_id')->references('id')->on('employees');
             $table->text('description')->nullable();
             $table->text('decide')->nullable();
             $table->bigInteger('status_id')->unsigned();

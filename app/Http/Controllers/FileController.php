@@ -11,7 +11,7 @@ class FileController extends Controller
     {
         $path = $request->file('file')->store('files', 'public');
         $file = new File([
-            'file_path' => $path
+            'file_path' => '/storage/' . $path
         ]);
         if ($file->save()) {
             return response()->json([

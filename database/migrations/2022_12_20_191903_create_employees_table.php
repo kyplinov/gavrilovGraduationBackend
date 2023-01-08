@@ -32,6 +32,7 @@ return new class extends Migration
             $table->foreignId('area_id')
                 ->nullable()
                 ->constrained();
+            $table->enum('type', ['sup', 'em'])->default('em');
             $table->timestamps();
         });
     }

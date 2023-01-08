@@ -30,13 +30,21 @@ class ApplicationController extends Controller
         $application = new Application([
             'date_completed' => $request->date_completed,
             'configuration_unit_id' => $request->configuration_unit['id'],
-            'extra' => $request->extra,
             'employee_id' => $request->employee['id'],
+            'support_id' => $request->support['id'],
             'description' => $request->description,
             'decide' => $request->decide,
             'status_id' => $request->status['id'],
         ]);
         if ($application->save()) {
+
+            if (count($request->configurationUnits) > 0) {
+                foreach ($request->configurationUnits as $configurationUnit) {
+                    $configurationUnitIds [] = $configurationUnit['id'];
+                }
+                $application->configurationUnits()->sync($configurationUnitIds);
+            }
+
             return response()->json([
                 'message' => 'Заявка сохранена',
                 'id' => $application->id,
@@ -52,13 +60,21 @@ class ApplicationController extends Controller
     {
         $application->date_completed = $request->date_completed;
         $application->configuration_unit_id = $request->configuration_unit['id'];
-        $application->extra = $request->extra;
         $application->employee_id = $request->employee['id'];
+        $application->support_id = $request->support['id'];
         $application->description = $request->description;
         $application->decide = $request->decide;
         $application->status_id = $request->status['id'];
 
         if ($application->update()) {
+
+            if (count($request->configurationUnits) > 0) {
+                foreach ($request->configurationUnits as $configurationUnit) {
+                    $configurationUnitIds [] = $configurationUnit['id'];
+                }
+                $application->configurationUnits()->sync($configurationUnitIds);
+            }
+
             return response()->json([
                 'message' => 'Заявка сохранена',
             ]);

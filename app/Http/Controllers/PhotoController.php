@@ -24,7 +24,7 @@ class PhotoController extends Controller
     {
         $path = $request->file('photo')->store('photos', 'public');
         $file = new File([
-            'file_path' => $path
+            'file_path' => '/storage/' . $path
         ]);
 
         if ($file->save()) {
