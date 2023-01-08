@@ -36,14 +36,7 @@ class ApplicationController extends Controller
             'status_id' => $request->status['id'],
         ]);
         if ($application->save()) {
-
-            if (count($request->configurationUnits) > 0) {
-                foreach ($request->configurationUnits as $configurationUnit) {
-                    $configurationUnitIds [] = $configurationUnit['id'];
-                }
-                $application->configurationUnits()->sync($configurationUnitIds);
-            }
-
+            $this->saveIntermediateTableData($request, $application);
             return response()->json([
                 'message' => 'Заявка сохранена',
                 'id' => $application->id,
@@ -65,14 +58,7 @@ class ApplicationController extends Controller
         $application->status_id = $request->status['id'];
 
         if ($application->update()) {
-
-            if (count($request->configurationUnits) > 0) {
-                foreach ($request->configurationUnits as $configurationUnit) {
-                    $configurationUnitIds [] = $configurationUnit['id'];
-                }
-                $application->configurationUnits()->sync($configurationUnitIds);
-            }
-
+            $this->saveIntermediateTableData($request, $application);
             return response()->json([
                 'message' => 'Заявка сохранена',
             ]);
@@ -80,6 +66,23 @@ class ApplicationController extends Controller
             return response()->json([
                 'error' => 'Предоставьте правильную информацию',
             ], 422);
+        }
+    }
+
+    private function saveIntermediateTableData(Request $request, Application $application)
+    {
+        if (count($request->configurationUnits) > 0) {
+            foreach ($request->configurationUnits as $configurationUnit) {
+                $configurationUnitIds [] = $configurationUnit['id'];
+            }
+            $application->configurationUnits()->sync($configurationUnitIds);
+        }
+
+        if (count($request->files) > 0) {
+            foreach ($request->files as $file) {
+                $fileIds [] = $file['id'];
+            }
+            $application->files()->sync($fileIds);
         }
     }
 
