@@ -34,7 +34,7 @@ class EmployeesController extends Controller
 
     public function create(Request $request)
     {
-        $employees = new Employee([
+        $employee = new Employee([
             'user_id' => $request->user ? $request->user['id'] : null,
             'first_name' => $request->first_name,
             'second_name' => $request->second_name,
@@ -48,10 +48,18 @@ class EmployeesController extends Controller
             'area_id' => $request->area ? $request->area['id'] : null,
         ]);
 
-        if ($employees->save()) {
+        if ($employee->save()) {
+
+            if (count($request->configurationUnits) > 0) {
+                foreach ($request->configurationUnits as $configurationUnit) {
+                    $configurationUnitIds [] = $configurationUnit['id'];
+                }
+                $employee->configurationUnits()->sync($configurationUnitIds);
+            }
+
             return response()->json([
                 'message' => 'Сотрудник сохранен',
-                'id' => $employees->id,
+                'id' => $employee->id,
             ], 201);
         } else {
             return response()->json([
@@ -76,6 +84,14 @@ class EmployeesController extends Controller
 
 
         if ($employee->update()) {
+
+            if (count($request->configurationUnits) > 0) {
+                foreach ($request->configurationUnits as $configurationUnit) {
+                    $configurationUnitIds [] = $configurationUnit['id'];
+                }
+                $employee->configurationUnits()->sync($configurationUnitIds);
+            }
+
             return response()->json([
                 'message' => 'Сотрудник сохранен',
             ]);

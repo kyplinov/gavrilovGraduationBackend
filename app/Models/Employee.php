@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 class Employee extends Model
@@ -26,6 +27,7 @@ class Employee extends Model
     protected $appends = [
         'photo',
         'area',
+        'configurationUnits',
     ];
 
     public function photo()
@@ -46,5 +48,15 @@ class Employee extends Model
     public function getAreaAttribute()
     {
         return $this->area()->get()->first();
+    }
+
+    public function configurationUnits()
+    {
+        return $this->belongsToMany(ConfigurationUnit::class);
+    }
+
+    public function getConfigurationUnitsAttribute(): Collection
+    {
+        return $this->configurationUnits()->get();
     }
 }

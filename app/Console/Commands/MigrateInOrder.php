@@ -46,7 +46,7 @@ class MigrateInOrder extends Command
             '2022_12_20_184414_create_applications_table.php',
             '2022_12_20_185653_create_application_file_table.php',
             '2022_12_20_190627_create_application_configuration_unit_table.php',
-            '2022_12_20_195718_create_configuration_unit_employees_table.php',
+            '2023_01_08_163843_create_configuration_unit_employee.php',
         ];
 
         foreach($migrations as $migration)
