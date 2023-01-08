@@ -29,7 +29,6 @@ class ApplicationController extends Controller
     {
         $application = new Application([
             'date_completed' => $request->date_completed,
-            'configuration_unit_id' => $request->configuration_unit['id'],
             'employee_id' => $request->employee['id'],
             'support_id' => $request->support['id'],
             'description' => $request->description,
@@ -59,7 +58,6 @@ class ApplicationController extends Controller
     public function update(Request $request, Application $application)
     {
         $application->date_completed = $request->date_completed;
-        $application->configuration_unit_id = $request->configuration_unit['id'];
         $application->employee_id = $request->employee['id'];
         $application->support_id = $request->support['id'];
         $application->description = $request->description;
