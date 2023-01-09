@@ -2,24 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\CollectionHelper;
 use App\Models\Status;
 use App\Models\StatusType;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class StatusController extends Controller
 {
     public function registry(Request $request)
     {
         $queryParams = $request->all();
-        $collection = Status::paginate(isset($queryParams['pageSize']) ? (int)$queryParams['pageSize'] : 10);
+        $collection = Status::all();
         foreach ($queryParams as $key => $value) {
             if ($key !== 'pageSize') {
-                print_r($key);
                 $collection = $collection->where("$key", 'LIKE' ,"$value");
             }
         }
-        return response()->json($collection);
+        return response()->json(CollectionHelper::paginate($collection, isset($queryParams['pageSize']) ? (int)$queryParams['pageSize'] : 10));
     }
 
     public function get(Status $status)

@@ -14,7 +14,6 @@ class EmployeesController extends Controller
         $collection = Employee::paginate(isset($queryParams['pageSize']) ? (int)$queryParams['pageSize'] : 10);
         foreach ($queryParams as $key => $value) {
             if ($key !== 'pageSize') {
-                print_r($key);
                 $collection = $collection->where("$key", 'LIKE' ,"$value");
             }
         }
