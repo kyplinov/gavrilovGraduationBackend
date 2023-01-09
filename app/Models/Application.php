@@ -29,7 +29,7 @@ class Application extends Model
         'support',
         'status',
         'configurationUnits',
-        'files',
+        'appFiles',
     ];
 
     public function configurationUnits()
@@ -72,13 +72,13 @@ class Application extends Model
         return $this->status()->get()->first();
     }
 
-    public function files()
+    public function appFiles()
     {
         return $this->belongsToMany(File::class);
     }
 
-    public function getFilesAttribute(): Collection
+    public function getAppFilesAttribute(): Collection
     {
-        return $this->files()->get();
+        return $this->appFiles()->get();
     }
 }

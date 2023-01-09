@@ -77,12 +77,12 @@ class ApplicationController extends Controller
             }
             $application->configurationUnits()->sync($configurationUnitIds);
         }
-
-        if (count($request->files) > 0) {
-            foreach ($request->files as $file) {
+        var_dump($request->appFiles);
+        if (count($request->appFiles) > 0) {
+            foreach ($request->appFiles as $file) {
                 $fileIds [] = $file['id'];
             }
-            $application->files()->sync($fileIds);
+            $application->appFiles()->sync($fileIds);
         }
     }
 
