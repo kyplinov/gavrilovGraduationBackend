@@ -10,13 +10,7 @@ class EmployeesHelpers
 {
     public static function filtered(Builder $query, Request $request): Collection
     {
-        if (isset($request->area_id)) {
-            $query->whereIn('area_id', $request->area_id);
-        }
-
-        if (isset($request->type)) {
-            $query->where('type', $request->type);
-        }
+        FilterHelper::filtered($query, $request);
 
         if (isset($request->filter)) {
             $query->Where('first_name', 'LIKE', $request->filter)

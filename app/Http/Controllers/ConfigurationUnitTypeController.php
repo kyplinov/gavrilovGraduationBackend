@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\CollectionHelper;
+use App\Helpers\FilterHelper;
 use App\Models\ConfigurationUnitType;
 use Illuminate\Http\Request;
 
@@ -11,12 +12,7 @@ class ConfigurationUnitTypeController extends Controller
     public function registry(Request $request)
     {
         $queryParams = $request->all();
-        $collection = ConfigurationUnitType::all();
-        foreach ($queryParams as $key => $value) {
-            if ($key !== 'pageSize') {
-                $collection = $collection->where("$key", 'LIKE' ,"$value");
-            }
-        }
+        $collection = FilterHelper::filtered(ConfigurationUnitType::query(), $request)->get();
         return response()->json(CollectionHelper::paginate($collection, isset($queryParams['pageSize']) ? (int)$queryParams['pageSize'] : 10));
     }
 

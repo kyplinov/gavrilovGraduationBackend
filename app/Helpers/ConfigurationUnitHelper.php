@@ -10,17 +10,7 @@ class ConfigurationUnitHelper
 {
     public static function filtered(Builder $query, Request $request): Collection
     {
-        if (isset($request->configuration_unit_type_id)) {
-            $query->whereIn('configuration_unit_type_id', $request->configuration_unit_type_id);
-        }
-
-        if (isset($request->area_id)) {
-            $query->whereIn('area_id', $request->area_id);
-        }
-
-        if (isset($request->status_id)) {
-            $query->whereIn('status_id', $request->status_id);
-        }
+        FilterHelper::filtered($query, $request);
 
         if (isset($request->filter)) {
             $query->Where('number', 'LIKE', $request->filter)
