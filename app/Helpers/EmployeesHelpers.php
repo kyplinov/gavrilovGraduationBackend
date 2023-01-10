@@ -14,6 +14,10 @@ class EmployeesHelpers
             $query->whereIn('area_id', $request->area_id);
         }
 
+        if (isset($request->type)) {
+            $query->where('type', $request->type);
+        }
+
         if (isset($request->filter)) {
             $query->Where('first_name', 'LIKE', $request->filter)
                 ->orWhere('second_name', 'LIKE', $request->filter)
