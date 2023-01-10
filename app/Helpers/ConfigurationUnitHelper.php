@@ -10,7 +10,7 @@ class ConfigurationUnitHelper
 {
     public static function filtered(Builder $query, Request $request): Collection
     {
-        FilterHelper::filtered($query, $request);
+        $query = FilterHelper::filtered($query, $request);
 
         if (isset($request->filter)) {
             $query->Where('number', 'LIKE', "%$request->filter%")

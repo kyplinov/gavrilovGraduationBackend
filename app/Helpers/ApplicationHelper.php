@@ -9,7 +9,7 @@ class ApplicationHelper
 {
     public static function filtered(Builder $query, Request $request): Collection
     {
-        FilterHelper::filtered($query, $request);
+        $query = FilterHelper::filtered($query, $request);
 
         if (isset($request->filter)) {
             $query->Where('description', 'LIKE', "%$request->filter%")
