@@ -12,10 +12,10 @@ class CollectionHelper
     public static function paginate(Collection $results, $pageSize)
     {
         $page = Paginator::resolveCurrentPage('page');
+        $collection = $results->values();
+        $total = $collection->count();
 
-        $total = $results->count();
-
-        return self::paginator($results->forPage($page, $pageSize), $total, $pageSize, $page, [
+        return self::paginator($collection->forPage($page, $pageSize), $total, $pageSize, $page, [
             'path' => Paginator::resolveCurrentPath(),
             'pageName' => 'page',
         ]);

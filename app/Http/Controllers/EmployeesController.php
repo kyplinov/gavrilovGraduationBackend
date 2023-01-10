@@ -2,22 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\CollectionHelper;
+use App\Helpers\EmployeesHelpers;
 use App\Models\Employee;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class EmployeesController extends Controller
 {
     public function registry(Request $request)
     {
-        $queryParams = $request->all();
-        $collection = Employee::paginate(isset($queryParams['pageSize']) ? (int)$queryParams['pageSize'] : 10);
-        foreach ($queryParams as $key => $value) {
-            if ($key !== 'pageSize') {
-                $collection = $collection->where("$key", 'LIKE' ,"$value");
-            }
-        }
-        return response()->json($collection);
+        return response()->json(
+            CollectionHelper::paginate(
+                EmployeesHelpers::filtered(Employee::query(), $request),
+                isset($queryParams['pageSize']) ? (int)$queryParams['pageSize'] : 10)
+        );
     }
 
     public function get(Employee $employee)

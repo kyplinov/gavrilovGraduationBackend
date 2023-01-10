@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\CollectionHelper;
+use App\Helpers\ConfigurationUnitHelper;
 use App\Models\ConfigurationUnit;
 use Illuminate\Http\Request;
 
@@ -9,14 +11,11 @@ class ConfigurationUnitController extends Controller
 {
     public function registry(Request $request)
     {
-        $queryParams = $request->all();
-        $collection = ConfigurationUnit::paginate(isset($queryParams['pageSize']) ? (int)$queryParams['pageSize'] : 10);
-        foreach ($queryParams as $key => $value) {
-            if ($key !== 'pageSize') {
-                $collection = $collection->where("$key", 'LIKE' ,"$value");
-            }
-        }
-        return response()->json($collection);
+        return response()->json(
+            CollectionHelper::paginate(
+                ConfigurationUnitHelper::filtered(ConfigurationUnit::query(), $request),
+                isset($queryParams['pageSize']) ? (int)$queryParams['pageSize'] : 10)
+        );
     }
 
     public function get(ConfigurationUnit $configurationUnit)

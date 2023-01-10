@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ApplicationHelper;
+use App\Helpers\CollectionHelper;
 use App\Models\Application;
 use Illuminate\Http\Request;
 
@@ -9,14 +11,11 @@ class ApplicationController extends Controller
 {
     public function registry(Request $request)
     {
-        $queryParams = $request->all();
-        $collection = Application::paginate(isset($queryParams['pageSize']) ? (int)$queryParams['pageSize'] : 10);
-        foreach ($queryParams as $key => $value) {
-            if ($key !== 'pageSize') {
-                $collection = $collection->where("$key", 'LIKE' ,"$value");
-            }
-        }
-        return response()->json($collection);
+        return response()->json(
+            CollectionHelper::paginate(
+                ApplicationHelper::filtered(Application::query(), $request),
+                isset($queryParams['pageSize']) ? (int)$queryParams['pageSize'] : 10)
+        );
     }
 
     public function get(Application $application)

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\CollectionHelper;
 use App\Models\Area;
 use Illuminate\Http\Request;
 
@@ -10,13 +11,13 @@ class AreaController extends Controller
     public function registry(Request $request)
     {
         $queryParams = $request->all();
-        $collection = Area::paginate(isset($queryParams['pageSize']) ? (int)$queryParams['pageSize'] : 10);
+        $collection = Area::all();
         foreach ($queryParams as $key => $value) {
             if ($key !== 'pageSize') {
                 $collection = $collection->where("$key", 'LIKE' ,"$value");
             }
         }
-        return response()->json($collection);
+        return response()->json(CollectionHelper::paginate($collection, isset($queryParams['pageSize']) ? (int)$queryParams['pageSize'] : 10));
     }
 
     public function get(Area $area)
