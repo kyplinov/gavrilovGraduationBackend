@@ -16,7 +16,7 @@ class FilterHelper
                 if (is_array ($value)) {
                     $query->whereIn($key, $value);
                 } else {
-                    $query->where("$key", 'LIKE', "$value");
+                    $query->where("$key", 'LIKE', "%$value%");
                 }
             }
         }

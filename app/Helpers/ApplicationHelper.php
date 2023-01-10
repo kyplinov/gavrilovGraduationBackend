@@ -12,8 +12,8 @@ class ApplicationHelper
         FilterHelper::filtered($query, $request);
 
         if (isset($request->filter)) {
-            $query->Where('description', 'LIKE', $request->filter)
-                ->orWhere('decide', 'LIKE', $request->filter)
+            $query->Where('description', 'LIKE', "%$request->filter%")
+                ->orWhere('decide', 'LIKE', "%$request->filter%")
                 ->get();
         }
 

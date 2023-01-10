@@ -13,13 +13,13 @@ class EmployeesHelpers
         FilterHelper::filtered($query, $request);
 
         if (isset($request->filter)) {
-            $query->Where('first_name', 'LIKE', $request->filter)
-                ->orWhere('second_name', 'LIKE', $request->filter)
-                ->orWhere('patronymic', 'LIKE', $request->filter)
-                ->orWhere('work_phone_number', 'LIKE', $request->filter)
-                ->orWhere('mobile_phone_number', 'LIKE', $request->filter)
-                ->orWhere('email', 'LIKE', $request->filter)
-                ->orWhere('position', 'LIKE', $request->filter)
+            $query->Where('first_name', 'LIKE', "%$request->filter%")
+                ->orWhere('second_name', 'LIKE', "%$request->filter%")
+                ->orWhere('patronymic', 'LIKE', "%$request->filter%")
+                ->orWhere('work_phone_number', 'LIKE', "%$request->filter%")
+                ->orWhere('mobile_phone_number', 'LIKE', "%$request->filter%")
+                ->orWhere('email', 'LIKE', "%$request->filter%")
+                ->orWhere('position', 'LIKE', "%$request->filter%")
                 ->get();
         }
 
