@@ -12,7 +12,7 @@ class FilterHelper
     {
         $queryParams = $request->all();
         foreach ($queryParams as $key => $value) {
-            if ($key !== 'pageSize') {
+            if ($key !== 'pageSize' and $key !== 'filter') {
                 if (is_array ($value)) {
                     $query->whereIn($key, $value);
                 } else {
