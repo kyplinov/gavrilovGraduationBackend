@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Helpers\CollectionHelper;
 use App\Helpers\FilterHelper;
+use App\Models\Application;
 use App\Models\ConfigurationUnitType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ConfigurationUnitTypeController extends Controller
 {
@@ -64,5 +66,28 @@ class ConfigurationUnitTypeController extends Controller
                 'error' => 'Ошибка при удалении типа КЕ',
             ], 422);
         }
+    }
+
+    public function forApp(Request $request)
+    {
+        $configUnitId = $request->config_unit_id;
+        $appIds = [];
+        $result = null;
+
+        $applications = DB::table('application_configuration_unit')
+            ->select('application_id')
+            ->where('configuration_unit_id', '=', $configUnitId)
+            ->get()->toArray();
+
+        foreach ($applications as $application) {
+            array_push($appIds, $application->application_id);
+        }
+
+        if ($appIds) {
+            $query = Application::query();
+            $result = $query->whereIn('id', $appIds)->get();
+        }
+
+        return response()->json($result);
     }
 }

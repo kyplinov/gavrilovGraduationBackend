@@ -4,7 +4,6 @@ namespace App\Helpers;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 
 class FilterHelper
 {

@@ -17,11 +17,11 @@ class Application extends Model
         'description',
         'decide',
         'status_id',
+        'created_at',
+        'updated_at',
     ];
 
     protected $hidden = [
-        'created_at',
-        'updated_at',
     ];
 
     protected $appends = [
