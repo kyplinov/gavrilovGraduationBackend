@@ -12,6 +12,7 @@ class ConfigurationUnitType extends Model
     protected $fillable = [
         'id',
         'type',
+        'short_name',
     ];
 
     protected $hidden = [
