@@ -82,6 +82,6 @@ class ConfigurationUnitController extends Controller
 
     public function andereyLOx()
     {
-        return ConfigurationUnit::query()->orderBy('id', 'desc')->get()->first()->id + 1;
+        return (ConfigurationUnit::query()->orderBy('id', 'desc')->get()->first()->id ?: 0) + 1;
     }
 }
