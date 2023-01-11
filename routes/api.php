@@ -59,6 +59,7 @@ Route::group(['prefix' => 'configurationUnitType', 'middleware' => 'jwt.auth'], 
 Route::group(['prefix' => 'configurationUnit', 'middleware' => 'jwt.auth'], function () {
     Route::get('registry', [ConfigurationUnitController::class, 'registry']);
     Route::post('', [ConfigurationUnitController::class, 'create']);
+    Route::get('andereyLOx', [ConfigurationUnitController::class, 'andereyLOx']);
     Route::group(['prefix' => '{configurationUnit}'], function () {
         Route::get('', [ConfigurationUnitController::class, 'get']);
         Route::put('', [ConfigurationUnitController::class, 'update']);

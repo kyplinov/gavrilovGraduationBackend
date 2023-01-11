@@ -79,4 +79,9 @@ class ConfigurationUnitController extends Controller
             ], 422);
         }
     }
+
+    public function andereyLOx()
+    {
+        return ConfigurationUnit::query()->orderBy('id', 'desc')->get()->first()->id + 1;
+    }
 }
