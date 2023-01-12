@@ -6,6 +6,7 @@ use App\Helpers\ApplicationHelper;
 use App\Helpers\CollectionHelper;
 use App\Models\Application;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ApplicationController extends Controller
 {
@@ -94,5 +95,28 @@ class ApplicationController extends Controller
                 'error' => 'Ошибка при удалении заявки',
             ], 422);
         }
+    }
+
+    public function forConfigUnit(Request $request)
+    {
+        $configUnitId = $request->config_unit_id;
+        $appIds = [];
+        $result = null;
+
+        $applications = DB::table('application_configuration_unit')
+            ->select('application_id')
+            ->where('configuration_unit_id', '=', $configUnitId)
+            ->get()->toArray();
+
+        foreach ($applications as $application) {
+            array_push($appIds, $application->application_id);
+        }
+
+        if ($appIds) {
+            $query = Application::query();
+            $result = $query->whereIn('id', $appIds)->get();
+        }
+
+        return response()->json($result);
     }
 }

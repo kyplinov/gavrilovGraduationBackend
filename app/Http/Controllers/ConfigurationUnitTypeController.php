@@ -67,27 +67,4 @@ class ConfigurationUnitTypeController extends Controller
             ], 422);
         }
     }
-
-    public function forApp(Request $request)
-    {
-        $configUnitId = $request->config_unit_id;
-        $appIds = [];
-        $result = null;
-
-        $applications = DB::table('application_configuration_unit')
-            ->select('application_id')
-            ->where('configuration_unit_id', '=', $configUnitId)
-            ->get()->toArray();
-
-        foreach ($applications as $application) {
-            array_push($appIds, $application->application_id);
-        }
-
-        if ($appIds) {
-            $query = Application::query();
-            $result = $query->whereIn('id', $appIds)->get();
-        }
-
-        return response()->json($result);
-    }
 }
