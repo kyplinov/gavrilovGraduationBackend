@@ -99,13 +99,12 @@ class ApplicationController extends Controller
 
     public function forConfigUnit(Request $request)
     {
-        $configUnitId = $request->config_unit_id;
         $appIds = [];
         $result = null;
 
         $applications = DB::table('application_configuration_unit')
             ->select('application_id')
-            ->where('configuration_unit_id', '=', $configUnitId)
+            ->where('configuration_unit_id', '=', $request->configurationUnit)
             ->get()->toArray();
 
         foreach ($applications as $application) {

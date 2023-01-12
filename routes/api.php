@@ -101,7 +101,7 @@ Route::group(['prefix' => 'file', 'middleware' => 'jwt.auth'], function () {
 Route::group(['prefix' => 'application', 'middleware' => 'jwt.auth'], function () {
     Route::get('registry', [ApplicationController::class, 'registry']);
     Route::post('', [ApplicationController::class, 'create']);
-    Route::post('forConfigUnit', [ApplicationController::class, 'forConfigUnit']);
+    Route::get('forConfigUnit/{configurationUnit}', [ApplicationController::class, 'forConfigUnit']);
     Route::group(['prefix' => '{application}'], function() {
         Route::get('', [ApplicationController::class, 'get']);
         Route::put('', [ApplicationController::class, 'update']);
