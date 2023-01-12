@@ -24,7 +24,8 @@ class PhotoController extends Controller
     {
         $path = $request->file('photo')->store('photos', 'public');
         $file = new File([
-            'file_path' => '/storage/' . $path
+            'file_path' => '/storage/' . $path,
+            'origin_name' => $request->file->getClientOriginalName()
         ]);
 
         if ($file->save()) {

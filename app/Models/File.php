@@ -12,6 +12,7 @@ class File extends Model
     protected $fillable = [
         'id',
         'file_path',
+        'origin_name',
     ];
 
     protected $hidden = [
