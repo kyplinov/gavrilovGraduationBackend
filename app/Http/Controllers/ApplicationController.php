@@ -75,7 +75,6 @@ class ApplicationController extends Controller
             }
             $application->configurationUnits()->sync($configurationUnitIds);
         }
-        var_dump($request->appFiles);
         if (count($request->appFiles) > 0) {
             foreach ($request->appFiles as $file) {
                 $fileIds [] = $file['id'];
