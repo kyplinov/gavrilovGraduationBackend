@@ -33,7 +33,6 @@ class EmployeesController extends Controller
     public function create(Request $request)
     {
         $employee = new Employee([
-            'user_id' => $request->user ? $request->user['id'] : null,
             'first_name' => $request->first_name,
             'second_name' => $request->second_name,
             'patronymic' => $request->patronymic,
@@ -68,7 +67,6 @@ class EmployeesController extends Controller
 
     public function update(Request $request, Employee $employee)
     {
-        $employee->user_id = $request->user ? $request->user['id'] : null;
         $employee->first_name = $request->first_name;
         $employee->second_name = $request->second_name;
         $employee->patronymic = $request->patronymic;
