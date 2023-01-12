@@ -6,6 +6,7 @@ use App\Helpers\CollectionHelper;
 use App\Helpers\ConfigurationUnitHelper;
 use App\Models\ConfigurationUnit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ConfigurationUnitController extends Controller
 {
@@ -84,5 +85,34 @@ class ConfigurationUnitController extends Controller
     {
         $lastConfigUnit = ConfigurationUnit::query()->orderBy('id', 'desc')->get()->first();
         return ($lastConfigUnit ? $lastConfigUnit->id : 0) + 1;
+    }
+
+    public function forArea(Request $request)
+    {
+        $configUnitIds = [];
+        $result = null;
+
+        $configUnits = DB::table('configuration_units')
+            ->select('configuration_units.id')
+            ->leftJoin('areas', 'areas.id', '=', 'configuration_units.area_id')
+            ->leftJoin('departments', 'departments.id', '=', 'areas.department_id')
+            ->whereIn('departments.id',
+                DB::table('employees')
+                    ->select('departments.id')->leftJoin('areas', 'areas.id', '=', 'employees.area_id')
+                    ->leftJoin('departments', 'departments.id', '=', 'areas.department_id')
+                    ->where('employees.id', '=', $request->AreaId)
+            )
+            ->get()->toArray();
+
+        foreach ($configUnits as $configUnit) {
+            array_push($configUnitIds, $configUnit->id);
+        }
+
+        if ($configUnitIds) {
+            $query = ConfigurationUnit::query();
+            $result = $query->whereIn('id', $configUnitIds)->get();
+        }
+
+        return response()->json($result);
     }
 }

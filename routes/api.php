@@ -60,6 +60,7 @@ Route::group(['prefix' => 'configurationUnit', 'middleware' => 'jwt.auth'], func
     Route::get('registry', [ConfigurationUnitController::class, 'registry']);
     Route::post('', [ConfigurationUnitController::class, 'create']);
     Route::get('andereyLOx', [ConfigurationUnitController::class, 'andereyLOx']);
+    Route::get('forArea/{AreaId}', [ConfigurationUnitController::class, 'forArea']);
     Route::group(['prefix' => '{configurationUnit}'], function () {
         Route::get('', [ConfigurationUnitController::class, 'get']);
         Route::put('', [ConfigurationUnitController::class, 'update']);
@@ -79,6 +80,7 @@ Route::group(['prefix' => 'department', 'middleware' => 'jwt.auth'], function ()
 
 Route::group(['prefix' => 'employee', 'middleware' => 'jwt.auth'], function () {
     Route::get('registry', [EmployeesController::class, 'registry']);
+    Route::get('byConfigUnit/{configurationUnit}', [EmployeesController::class, 'byConfigUnit']);
     Route::post('', [EmployeesController::class, 'create']);
     Route::post('search', [EmployeesController::class, 'search']);
     Route::group(['prefix' => '{employee}'], function() {

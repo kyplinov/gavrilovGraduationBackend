@@ -6,6 +6,7 @@ use App\Helpers\CollectionHelper;
 use App\Helpers\EmployeesHelpers;
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EmployeesController extends Controller
 {
@@ -110,5 +111,14 @@ class EmployeesController extends Controller
                 'error' => 'Ошибка при удалении департамента',
             ], 422);
         }
+    }
+
+    public function byConfigUnit(Request $request)
+    {
+        $employeeId = DB::table('configuration_unit_employee')
+            ->select('configuration_unit_employee.employee_id')
+            ->where('configuration_unit_employee.configuration_unit_id', '=', $request->configurationUnit)
+            ->get()->first()->employee_id;
+        return response()->json(Employee::query()->where('id', $employeeId)->get());
     }
 }
