@@ -44,9 +44,7 @@ class ApplicationHelper
             array_push($employeeIds, $employee->id);
         }
 
-        if ($employeeIds) {
-            $query->whereIn('id', $employeeIds);
-        }
+        $query->whereIn('id', $employeeIds);
 
         return $query;
     }
