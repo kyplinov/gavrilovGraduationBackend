@@ -18,9 +18,13 @@ return new class extends Migration
             $table->dateTime('date_completed')->nullable();
             $table->foreignId('employee_id')
                 ->nullable()
-                ->constrained();
-            $table->bigInteger('support_id')->unsigned();
-            $table->foreign('support_id')->references('id')->on('employees');
+                ->constrained()
+                ->nullOnDelete();
+            $table->bigInteger('support_id')->unsigned()->nullable();
+            $table->foreign('support_id')
+                ->references('id')
+                ->on('employees')
+                ->nullOnDelete();
             $table->text('description')->nullable();
             $table->text('decide')->nullable();
             $table->bigInteger('status_id')->unsigned();

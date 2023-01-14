@@ -51,6 +51,7 @@ class EmployeesController extends Controller
                 foreach ($request->configurationUnits as $configurationUnit) {
                     $configurationUnitIds [] = $configurationUnit['id'];
                 }
+                $employee->configurationUnits()->delete();
                 $employee->configurationUnits()->sync($configurationUnitIds);
             }
 
@@ -85,6 +86,7 @@ class EmployeesController extends Controller
                 foreach ($request->configurationUnits as $configurationUnit) {
                     $configurationUnitIds [] = $configurationUnit['id'];
                 }
+                $employee->configurationUnits()->delete();
                 $employee->configurationUnits()->sync($configurationUnitIds);
             }
 
