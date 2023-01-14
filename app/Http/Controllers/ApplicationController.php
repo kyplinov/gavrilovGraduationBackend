@@ -70,8 +70,6 @@ class ApplicationController extends Controller
 
     private function saveIntermediateTableData(Request $request, Application $application)
     {
-        $application->configurationUnits()->delete();
-        $application->appFiles()->delete();
         if (count($request->configurationUnits) > 0) {
             foreach ($request->configurationUnits as $configurationUnit) {
                 $configurationUnitIds [] = $configurationUnit['id'];

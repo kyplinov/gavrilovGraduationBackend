@@ -46,8 +46,6 @@ class EmployeesController extends Controller
         ]);
 
         if ($employee->save()) {
-
-            $employee->configurationUnits()->delete();
             if (count($request->configurationUnits) > 0) {
                 foreach ($request->configurationUnits as $configurationUnit) {
                     $configurationUnitIds [] = $configurationUnit['id'];
