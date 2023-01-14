@@ -46,12 +46,11 @@ class EmployeesController extends Controller
         ]);
 
         if ($employee->save()) {
-            if (count($request->configurationUnits) > 0) {
-                foreach ($request->configurationUnits as $configurationUnit) {
-                    $configurationUnitIds [] = $configurationUnit['id'];
-                }
-                $employee->configurationUnits()->sync($configurationUnitIds);
+            $configurationUnitIds = [];
+            foreach ($request->configurationUnits as $configurationUnit) {
+                $configurationUnitIds [] = $configurationUnit['id'];
             }
+            $employee->configurationUnits()->sync($configurationUnitIds);
 
             return response()->json([
                 'message' => 'Сотрудник сохранен',
