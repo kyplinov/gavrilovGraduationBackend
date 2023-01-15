@@ -46,11 +46,7 @@ class EmployeesController extends Controller
         ]);
 
         if ($employee->save()) {
-            $configurationUnitIds = [];
-            foreach ($request->configurationUnits as $configurationUnit) {
-                $configurationUnitIds [] = $configurationUnit['id'];
-            }
-            $employee->configurationUnits()->sync($configurationUnitIds);
+            $this->saveConfigUnit($request, $employee);
 
             return response()->json([
                 'message' => 'Сотрудник сохранен',
@@ -78,15 +74,7 @@ class EmployeesController extends Controller
 
 
         if ($employee->update()) {
-
-            $employee->configurationUnits()->delete();
-            if (count($request->configurationUnits) > 0) {
-                foreach ($request->configurationUnits as $configurationUnit) {
-                    $configurationUnitIds [] = $configurationUnit['id'];
-                }
-                $employee->configurationUnits()->sync($configurationUnitIds);
-            }
-
+            $this->saveConfigUnit($request, $employee);
             return response()->json([
                 'message' => 'Сотрудник сохранен',
             ]);
@@ -112,10 +100,24 @@ class EmployeesController extends Controller
 
     public function byConfigUnit(Request $request)
     {
-        $employeeId = DB::table('configuration_unit_employee')
-            ->select('configuration_unit_employee.employee_id')
-            ->where('configuration_unit_employee.configuration_unit_id', '=', $request->configurationUnit)
-            ->get()->first()->employee_id;
-        return response()->json($employeeId ? Employee::query()->where('id', $employeeId)->get() : []);
+        if (!empty($request->configurationUnit)) {
+            $employeeId = DB::table('configuration_unit_employee')
+                ->select('configuration_unit_employee.employee_id')
+                ->where('configuration_unit_employee.configuration_unit_id', '=', $request->configurationUnit)
+                ->get()->first()->employee_id;
+            $result = $employeeId ? Employee::query()->where('id', $employeeId)->get() : [];
+        } else {
+            $result = [];
+        }
+        return response()->json($result);
+    }
+
+    private function saveConfigUnit(Request $request, Employee $employee)
+    {
+        $configurationUnitIds = [];
+        foreach ($request->configurationUnits as $configurationUnit) {
+            $configurationUnitIds [] = $configurationUnit['id'];
+        }
+        $employee->configurationUnits()->sync($configurationUnitIds);
     }
 }

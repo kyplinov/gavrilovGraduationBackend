@@ -102,6 +102,10 @@ class ConfigurationUnitController extends Controller
                     ->leftJoin('departments', 'departments.id', '=', 'areas.department_id')
                     ->where('employees.id', '=', $request->AreaId)
             )
+            ->whereNotIn('configuration_units.id',
+                DB::table('configuration_unit_employee')
+                ->select('configuration_unit_employee.configuration_unit_id')
+            )
             ->get()->toArray();
 
         foreach ($configUnits as $configUnit) {
