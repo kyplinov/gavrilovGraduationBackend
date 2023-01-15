@@ -106,9 +106,9 @@ class EmployeesController extends Controller
                 ->where('configuration_unit_employee.configuration_unit_id', '=', $request->configurationUnit)
                 ->get();
 
-            $employeeId = $configUnit ? null : $configUnit->first()->employee_id;
+            $employeeId = !$configUnit ? null : $configUnit->first()->employee_id;
 
-            $result = !$employeeId ? Employee::query()->where('id', $employeeId)->get() : [];
+            $result = $employeeId ? Employee::query()->where('id', $employeeId)->get() : [];
 
         } else {
             $result = [];
