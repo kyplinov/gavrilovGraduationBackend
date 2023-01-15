@@ -116,6 +116,6 @@ class EmployeesController extends Controller
             ->select('configuration_unit_employee.employee_id')
             ->where('configuration_unit_employee.configuration_unit_id', '=', $request->configurationUnit)
             ->get()->first()->employee_id;
-        return response()->json(Employee::query()->where('id', $employeeId)->get());
+        return response()->json($employeeId ? Employee::query()->where('id', $employeeId)->get() : []);
     }
 }
