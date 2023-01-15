@@ -101,11 +101,15 @@ class EmployeesController extends Controller
     public function byConfigUnit(Request $request)
     {
         if (!empty($request->configurationUnit)) {
-            $employeeId = DB::table('configuration_unit_employee')
+            $configUnit = DB::table('configuration_unit_employee')
                 ->select('configuration_unit_employee.employee_id')
                 ->where('configuration_unit_employee.configuration_unit_id', '=', $request->configurationUnit)
-                ->get()->first()->employee_id;
+                ->get();
+
+            $employeeId = $configUnit ? null : $configUnit->first()->employee_id;
+
             $result = $employeeId ? Employee::query()->where('id', $employeeId)->get() : [];
+
         } else {
             $result = [];
         }
