@@ -97,10 +97,9 @@ class ConfigurationUnitController extends Controller
             ->leftJoin('areas', 'areas.id', '=', 'configuration_units.area_id')
             ->leftJoin('departments', 'departments.id', '=', 'areas.department_id')
             ->whereIn('departments.id',
-                DB::table('employees')
-                    ->select('departments.id')->leftJoin('areas', 'areas.id', '=', 'employees.area_id')
-                    ->leftJoin('departments', 'departments.id', '=', 'areas.department_id')
-                    ->where('employees.id', '=', $request->AreaId)
+                DB::table('areas')
+                    ->select('areas.department_id')
+                    ->where('areas.id', '=', $request->AreaId)
             )
             ->whereNotIn('configuration_units.id',
                 DB::table('configuration_unit_employee')
