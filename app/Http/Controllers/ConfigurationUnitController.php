@@ -90,7 +90,7 @@ class ConfigurationUnitController extends Controller
     public function forArea(Request $request)
     {
         $configUnitIds = [];
-        $result = null;
+        $result = [];
 
         $configUnits = DB::table('configuration_units')
             ->select('configuration_units.id')
@@ -113,7 +113,8 @@ class ConfigurationUnitController extends Controller
 
         if ($configUnitIds) {
             $query = ConfigurationUnit::query();
-            $result = $query->whereIn('id', $configUnitIds)->get();
+            $query->whereIn('id', $configUnitIds);
+            $result = $query->get();
         }
 
         return response()->json($result);
