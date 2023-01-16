@@ -101,7 +101,7 @@ class ApplicationController extends Controller
     public function forConfigUnit(Request $request)
     {
         $appIds = [];
-        $result = null;
+        $result = [];
 
         $applications = DB::table('application_configuration_unit')
             ->select('application_id')
